@@ -18,7 +18,7 @@ spec:
         app: vue-app
     spec:
       containers:
-      - image: sshector294/vueapp:1
+      - image: sshector294/vueapp:2
         name: vue-app
         resources: {}
 status: {}
