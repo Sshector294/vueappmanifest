@@ -1,38 +1,70 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
-  labels:
-    app: vue-app
-  name: vue-app
+  name: vueapp # Set the name of the deployment
 spec: 
-  replicas: 3
   selector:
     matchLabels:
-      app: vue-app
-  strategy: {}
-  template:
+      app: vueapp
+  replicas: 2 # Set the number of pods
+  template: 
     metadata:
-      creationTimestamp: null
-      labels:
-        app: vue-app
+      labels: 
+        app: vueapp
     spec:
       containers:
-      - image: sshector294/vueapp:2
-        name: vue-app
-        resources: {}
-status: {}
+      - name: vueapp # Sets the container name
+        image: sshector294/vueapp:2 # Sets the container image
+        ports:
+        - containerPort: 8000 # Exposes container port
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: lb-service
-  labels:
-    app: lb-service
+  name: vueapp-service # Set the name of the service
 spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-    targetPort: 5000
   selector:
-    app: vue-app
+    app: vueapp
+  ports:
+  - port: 8000 # Set the service port
+    protocol: TCP
+    targetPort: 80 # Set the service target port
+       
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   creationTimestamp: null
+#   labels:
+#     app: vue-app
+#   name: vue-app
+# spec: 
+#   replicas: 3
+#   selector:
+#     matchLabels:
+#       app: vue-app
+#   strategy: {}
+#   template:
+#     metadata:
+#       creationTimestamp: null
+#       labels:
+#         app: vue-app
+#     spec:
+#       containers:
+#       - image: sshector294/vueapp:2
+#         name: vue-app
+#         resources: {}
+# status: {}
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: lb-service
+#   labels:
+#     app: lb-service
+# spec:
+#   type: LoadBalancer
+#   ports:
+#   - port: 80
+#     targetPort: 5000
+#   selector:
+#     app: vue-app
