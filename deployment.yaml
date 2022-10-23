@@ -3,23 +3,23 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: web-app
-  name: web-app
+    app: vue-app
+  name: vue-app
 spec: 
   replicas: 3
   selector:
     matchLabels:
-      app: web-app
+      app: vue-app
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: web-app
+        app: vue-app
     spec:
       containers:
       - image: sshector294/vueapp:1
-        name: web-app
+        name: vue-app
         resources: {}
 status: {}
 ---
@@ -35,4 +35,4 @@ spec:
   - port: 80
     targetPort: 5000
   selector:
-    app: web-app
+    app: vue-app
