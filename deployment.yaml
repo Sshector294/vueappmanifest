@@ -18,18 +18,31 @@ spec:
         ports:
         - containerPort: 8000 # Exposes container port
 ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: vueapp-service # Set the name of the service
+# spec:
+#   selector:
+#     app: vueapp
+#   ports:
+#   - port: 8000 # Set the service port
+#     protocol: TCP
+#     targetPort: 80 # Set the service target port
 apiVersion: v1
 kind: Service
 metadata:
-  name: vueapp-service # Set the name of the service
+  name: lb-service
+  labels:
+    app: lb-service
 spec:
+  type: LoadBalancer
+  ports:
+  - port: 8000
+    targetPort: 80
   selector:
     app: vueapp
-  ports:
-  - port: 8000 # Set the service port
-    protocol: TCP
-    targetPort: 80 # Set the service target port
-       
+
 # apiVersion: apps/v1
 # kind: Deployment
 # metadata:
